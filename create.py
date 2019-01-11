@@ -3,8 +3,10 @@
 """ Creates a New Relic Synthetic monitor.
     reads user input for the Monitor name (label) & URL
     Works with API v3.
-    To do: 1) use a different key. Currently using Mike's
-    2) use a real function
+    Change locations and policy id as needed
+    add your API Key in these places: <Your API Key here>
+    to do:
+    1) use a real function
 """
 import json
 import re
@@ -37,7 +39,7 @@ def main():
                              "AWS_US_EAST_1"], "status": "ENABLED"
              }
 
-    headers = {'Content-Type': 'application/json', 'X-Api-Key': '886933983d488b0df84adbcca780c231'}
+    headers = {'Content-Type': 'application/json', 'X-Api-Key': '<Your API Key here>'}
 
     first_post = requests.post(url, data=json.dumps(values), headers=headers)
     print(first_post.status_code)
@@ -53,11 +55,11 @@ def main():
     monid = newresult[0]
     #print("monid", monid)
 
-    url2 = "https://api.newrelic.com/v2/alerts_synthetics_conditions/policies/276078.json"
+    url2 = "https://api.newrelic.com/v2/alerts_synthetics_conditions/policies/<Your Policy ID here>.json"
     values = {"synthetics_condition": {"name": "Check Failure", "monitor_id": monid,
                                        "runbook_url": "string", "enabled": "true"}}
 
-    headers = {'Content-Type': 'application/json', 'X-Api-Key': '886933983d488b0df84adbcca780c231'}
+    headers = {'Content-Type': 'application/json', 'X-Api-Key': '<Your API Key here>'}
     second_post = requests.post(url2, data=json.dumps(values), headers=headers)
     print(second_post.status_code)
     #print(second_post.headers)
